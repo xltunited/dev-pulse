@@ -1,23 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travelzilla</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
 
-<p>Click the button to get your coordinates.</p>
+<nav class="blue darken-3">
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="#!" class="brand-logo">Travelzilla</a>
+            <ul class="right hide-on-med-and-down">
+            <li><a class="grey darken-1 waves-effect waves-light btn">Github</a></li>
+            </ul>
+        </div>
+</nav>
 
-<button onclick="getLocation()">Try It</button>
+<div class="container center">
+    <p>Click the button to get your coordinates.</p>
 
-<p id="demo"></p>
+
+    <a onclick="getLocation()" class="grey darken-1 waves-effect waves-light btn">Get location</a>
+
+    <p id="demo"></p>
+
+</div>
 
 <script>
-var x = document.getElementById("demo");
 
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+//    http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
     }
-}
 
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude +
-    "<br>Longitude: " + position.coords.longitude;
-}
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+    }
 </script>
+
+
+</body>
+</html>
