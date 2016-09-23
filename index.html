@@ -43,13 +43,17 @@
     <p>Click this button to get your coordinates.</p>
 
 
-    <a onclick="getLocation()" class="grey darken-1 waves-effect waves-light btn">Get location</a>
+    <a id="getlocation" class="grey darken-1 waves-effect waves-light btn">Get location</a>
 
     <p id="demo"></p>
 
     <h3 id="address"></h3>
 
-    <div id="map_canvas" style="height: 500px; width:100%;"></div>
+    <div id="map_canvas" style="height: 500px; width:100%;">
+
+
+
+    </div>
 
     <div id="map"></div>
 
@@ -79,11 +83,25 @@
 
 
 
+        var directionsService = new google.maps.DirectionsService();
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        var city = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: city }
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        directionsDisplay.setMap(map);
+
+
         var queryURL = " http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
         $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
             console.log(data);
             console.log(data.results[0].formatted_address);
+
             $("#address").text(data.results[0].formatted_address);
+
+
+            console.log('live');
+
+
         });
 
 
@@ -91,38 +109,20 @@
     }
 
 $(document).ready(function(){
-    console.log('live')
 
-    var city = "New york";
-    var queryURL = "http://maps.google.com/maps/api/geocode/json?address="+city;
-
-    $.ajax({url: queryURL, method: 'GET'}).done(function(response){
-
-        // console.log(response.results[0].geometry.viewport.northeast.lat)
-        var latCord = response.results[0].geometry.viewport.northeast.lat;
-        var lngCord = response.results[0].geometry.viewport.northeast.lng;
-
-        console.log(latCord);
-        console.log(lngCord);
+$('#getlocation').on('click', function () {
 
 
+    $("#address").html('<div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only">  <div class="circle-clipper left">  <div class="circle"></div> </div><div class="gap-patch">  <div class="circle"></div>  </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>');
 
 
-        var marker = new google.maps.Marker({
-            position: {lat: latCord, lng: lngCord},
-            map: map,
-            title: "Hellow World!"
-        })
-
-
-    });
-
-
+            getLocation();
+})
 
 });
+
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEQmlJFm-bqFypQIalGFRynl7QxI2iO8&callback=initialize&v=3.exp&sensor=false&callback=initialize"></script>
+
 <script>
     var directionsDisplay,
             directionsService,
@@ -131,8 +131,8 @@ $(document).ready(function(){
     function initialize() {
         var directionsService = new google.maps.DirectionsService();
         directionsDisplay = new google.maps.DirectionsRenderer();
-        var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-        var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: chicago }
+        var newyork = new google.maps.LatLng(40.7986206, -74.0035987);
+        var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: newyork }
         map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         directionsDisplay.setMap(map);
     }
