@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Travelzilla</title>
+    <title>d3v Pulse</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
@@ -99,7 +99,12 @@
             $("#address").text(data.results[0].formatted_address);
 
 
-            console.log('live');
+            var myLatLng = {lat: position.coords.latitude, lng: position.coords.longitude};
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
 
 
         });
@@ -112,8 +117,10 @@ $(document).ready(function(){
 
 $('#getlocation').on('click', function () {
 
+//
+//    $("#address").html('<div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only">  <div class="circle-clipper left">  <div class="circle"></div> </div><div class="gap-patch">  <div class="circle"></div>  </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>');
 
-    $("#address").html('<div class="preloader-wrapper big active"> <div class="spinner-layer spinner-blue-only">  <div class="circle-clipper left">  <div class="circle"></div> </div><div class="gap-patch">  <div class="circle"></div>  </div><div class="circle-clipper right"> <div class="circle"></div> </div> </div> </div>');
+    $("#address").html('<div class="progress"><div class="indeterminate"></div></div>');
 
 
             getLocation();
