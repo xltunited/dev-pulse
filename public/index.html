@@ -89,13 +89,13 @@
 //        https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823&description=react
 
         var queryURL = "https://jobs.github.com/positions.json?lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "";
-        $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
+        $.ajax({url: queryURL, method: 'GET', dataType: 'jsonp'}).done(function(data) {
             console.log(data);
 
 //
             $.each( data, function( key, value ) {
                 console.log( key + ": " + value );
-                var gig = '<li class="collection-item">' + value.company + ': ' + value.title + ' <a href="' + value.url + '"><i class="material-icons">send</i></a></li>';
+                var gig = '<li class="collection-item"><a href="' + value.url + '">' + value.company + ': ' + value.title + '<i class="material-icons">send</i></a></li>';
                 $('#joblist').append(gig);
             });
 

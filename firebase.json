@@ -8,7 +8,7 @@
       "source" : "**",
       "headers" : [ {
         "key" : "Access-Control-Allow-Origin",
-        "value" : "*"
+        "value" : "https://jobs.github.com"
       } ]
     } ],
     "rewrites": [
