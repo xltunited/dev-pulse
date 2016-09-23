@@ -49,6 +49,10 @@
 
     <h3 id="address"></h3>
 
+    <ul id="joblist" class="collection with-header">
+        <!--<li class="collection-item">Alvin</li>-->
+    </ul>
+
     <div id="map_canvas" style="height: 500px; width:100%;">
 
 
@@ -72,11 +76,31 @@
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(getJobs);
         } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
         }
     }
 
+    function getJobs(position) {
+//        https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823&description=react
+
+        var queryURL = "https://jobs.github.com/positions.json?lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "&description=react";
+        $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
+            console.log(data);
+
+//
+            $.each( data, function( key, value ) {
+                console.log( key + ": " + value );
+                var gig = '<li class="collection-item">' + value.title + '</li>';
+                $('#joblist').append(gig)
+            });
+
+
+
+        });
+
+    }
     function showPosition(position) {
         x.innerHTML = "Latitude: " + position.coords.latitude +
                 "<br>Longitude: " + position.coords.longitude;
@@ -91,7 +115,7 @@
         directionsDisplay.setMap(map);
 
 
-        var queryURL = " http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
+        var queryURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
         $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
             console.log(data);
             console.log(data.results[0].formatted_address);
