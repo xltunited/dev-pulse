@@ -12,15 +12,19 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/materialize/dist/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+
 </head>
 <body>
 
 <nav class="blue darken-3">
     <div class="nav-wrapper">
         <div class="container">
-            <a href="#!" class="brand-logo">Travelzilla</a>
+            <a href="#!" class="brand-logo">d3v Pulse</a>
             <ul class="right hide-on-med-and-down">
-            <li><a class="grey darken-1 waves-effect waves-light btn">Github</a></li>
+            <li><a class="grey darken-1 waves-effect waves-light btn" href="https://github.com/anthonydelgado/dev-pulse">Github</a></li>
             </ul>
         </div>
 </nav>
@@ -32,8 +36,14 @@
     <a onclick="getLocation()" class="grey darken-1 waves-effect waves-light btn">Get location</a>
 
     <p id="demo"></p>
+    <h3 id="address"></h3>
+
+    <script type="text/javascript">
+        Stripe.setPublishableKey('pk_test_4QwVKivPz8aaZDb2WdhJjbBA');
+    </script>
 
 </div>
+
 
 <script>
 
@@ -51,6 +61,18 @@
     function showPosition(position) {
         x.innerHTML = "Latitude: " + position.coords.latitude +
                 "<br>Longitude: " + position.coords.longitude;
+
+
+
+        var queryURL = " http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
+        $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
+            console.log(data);
+            console.log(data.results[0].formatted_address);
+            $("#address").text(data.results[0].formatted_address);
+        });
+
+
+
     }
 </script>
 
