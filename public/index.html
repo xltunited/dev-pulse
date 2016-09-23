@@ -21,7 +21,12 @@
         padding: 0;
       }
       #map_canvas {
-        height: 500px;
+          z-index: -1;
+          position: fixed !important;
+          top: 0;
+          right: 0;
+          height: 100vh;
+          width: 100vw;
       }
     </style>
 
@@ -53,11 +58,6 @@
         <!--<li class="collection-item">Alvin</li>-->
     </ul>
 
-    <div id="map_canvas" style="height: 500px; width:100%;">
-
-
-
-    </div>
 
     <div id="map"></div>
 
@@ -66,11 +66,14 @@
 </div>
 
 
+<div id="map_canvas" style="">
+</div>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEQmlJFm-bqFypQIalGFRynl7QxI2iO8&callback=initialize"
         async defer></script>
 <script>
 
-//    http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true
+//    https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true
     var x = document.getElementById("demo");
 
     function getLocation() {
@@ -85,15 +88,15 @@
     function getJobs(position) {
 //        https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823&description=react
 
-        var queryURL = "https://jobs.github.com/positions.json?lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "&description=react";
+        var queryURL = "https://jobs.github.com/positions.json?lat=" + position.coords.latitude + "&long=" + position.coords.longitude + "";
         $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
             console.log(data);
 
 //
             $.each( data, function( key, value ) {
                 console.log( key + ": " + value );
-                var gig = '<li class="collection-item">' + value.title + '</li>';
-                $('#joblist').append(gig)
+                var gig = '<li class="collection-item">' + value.company + ': ' + value.title + ' <a href="' + value.url + '"><i class="material-icons">send</i></a></li>';
+                $('#joblist').append(gig);
             });
 
 
@@ -115,7 +118,7 @@
         directionsDisplay.setMap(map);
 
 
-        var queryURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
+        var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true";
         $.ajax({url: queryURL, method: 'GET'}).done(function(data) {
             console.log(data);
             console.log(data.results[0].formatted_address);
