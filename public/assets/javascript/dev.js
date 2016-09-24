@@ -29,6 +29,7 @@
 
     }
     function showPosition(position) {
+
         x.innerHTML = "Latitude: " + position.coords.latitude +
                 "<br>Longitude: " + position.coords.longitude;
 
@@ -38,7 +39,7 @@
         directionsDisplay = new google.maps.DirectionsRenderer();
         var city = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: city }
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
         directionsDisplay.setMap(map);
 
 

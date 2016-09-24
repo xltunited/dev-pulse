@@ -20,13 +20,18 @@
         margin: 0;
         padding: 0;
       }
-      #map_canvas {
-          z-index: -1;
+      #map {
+
+
           position: fixed !important;
-          top: 0;
+   
           right: 0;
           height: 100vh;
           width: 100vw;
+      }
+
+      .blue{
+
       }
     </style>
 
@@ -44,29 +49,39 @@
         </div>
 </nav>
 
-<div class="container center">
-    <p>Click this button to get your coordinates.</p>
+
+    
+    <div class="row">
+
+        <div class="col s9">
+
+            <div id="map"></div>
+
+            <div class="container center">
+
+                <p>Click this button to get your coordinates.</p>
 
 
-    <a id="getlocation" class="grey darken-1 waves-effect waves-light btn">Get location</a>
+                <a id="getlocation" class="grey darken-1 waves-effect waves-light btn">Get location</a>
 
-    <p id="demo"></p>
+                <p id="demo"></p>
 
-    <h3 id="address"></h3>
+                <h3 id="address"></h3>
 
-    <ul id="joblist" class="collection with-header">
-        <!--<li class="collection-item">Alvin</li>-->
-    </ul>
+            </div>
 
+        </div>
 
-    <div id="map"></div>
+        <div class="col s3">
 
+            <ul id="joblist" class="collection with-header">
+                
+            </ul>
 
+        </div>
 
-</div>
+    </div>
 
-
-<div id="map_canvas" style="">
 </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqEQmlJFm-bqFypQIalGFRynl7QxI2iO8&callback=initialize"
@@ -76,17 +91,16 @@
 
 
 <script>
-    var directionsDisplay,
-            directionsService,
-            map;
+    var map;
 
     function initialize() {
-        var directionsService = new google.maps.DirectionsService();
-        directionsDisplay = new google.maps.DirectionsRenderer();
+
         var newyork = new google.maps.LatLng(40.7986206, -74.0035987);
+
         var mapOptions = { zoom:7, mapTypeId: google.maps.MapTypeId.ROADMAP, center: newyork }
-        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-        directionsDisplay.setMap(map);
+
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
     }
 
 </script>
